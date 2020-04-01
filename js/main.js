@@ -1,0 +1,28 @@
+$(function() {
+	var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		//variables privadas
+		var links = this.el.find('.link');
+		//evento
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdowm)
+	
+	}
+
+	Accordion.prototype.dropdowm = function(e) {
+		var $el = e.data.el;
+                    $this = $(this),
+		    $next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open');
+
+		if (!this.multiple){
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+		};
+	}
+
+	
+	var accordion = new Accordion($('#mainmenu'));
+});
